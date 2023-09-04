@@ -35,26 +35,24 @@ public class ShopRepository {
     }
 
     public void removeById(int id) {
-
-        //  findById(int id);// проблема как вызвать метод и что туда передать,ведь он тоже принимает id.
-        //  пока написал как было в уроке.
-        if(id < 0) {
-            throw new NotFoundException(
-                    "Element with id: " + id + " not found"
-            );
+        Product deleteItem = findById(id);
+        if (deleteItem == null) {
+            throw new NotFoundException(id);
         }
 
         Product[] tmp = new Product[products.length - 1];
         int copyToIndex = 0;
-        for (Product product : products) {
+        for (
+                Product product : products) {
             if (product.getId() != id) {
                 tmp[copyToIndex] = product;
                 copyToIndex++;
             }
-        }
-        products = tmp;
-    }
 
+
+            products = tmp;
+        }
+    }
 
 
     public Product findById(int id) {
@@ -65,4 +63,5 @@ public class ShopRepository {
         }
         return null;
     }
+
 }
